@@ -63,7 +63,7 @@ The comparison below highlights the effectiveness of both fine-tuning strategies
 | Model Version             | ROUGE-1 (F1-score) | ROUGE-L (F1-score) | Notes                                                                                                                              |
 | :------------------------ | :----------------- | :----------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
 | **Pre-trained Flan-T5 Base** | 39.1               | 35.6               | Baseline performance.                                                                                                              |
-| **PEFT (LoRA) Fine-tuned** | **46.1** | **42.0** | Achieved ~18% improvement over baseline. Drastically reduced trainable parameters (~0.6% of total) and memory footprint.         |
+| **PEFT (LoRA) Fine-tuned** | **46.1** | **42.0** | Achieved ~18% improvement over baseline.          |
 | **Fully Fine-tuned** | **46.9** | **42.7** | Highest performance, ~20% improvement over baseline
 
 With PEFT (LoRA), fine-tuning was notably more efficient, completing approximately 19% faster and utilizing about 14% less GPU memory than full fine-tuning, while achieving nearly identical performance. This efficiency stems from only updating a tiny fraction of the model's parameters, with PEFT modelling only involving 1.77M trainable parameters (0.71% of all parameters).
