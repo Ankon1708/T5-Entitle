@@ -63,7 +63,7 @@ The comparison below highlights the effectiveness of both fine-tuning strategies
 | Model Version             | ROUGE-1 (F1-score) | ROUGE-L (F1-score) | Notes                                                                                                                              |
 | :------------------------ | :----------------- | :----------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
 | **Pre-trained Flan-T5 Base** | 39.1               | 35.6               | Baseline performance.                                                                                                              |
-| **PEFT (LoRA) Fine-tuned** | **46.5** | **42.2** | Achieved ~19% improvement over baseline. Drastically reduced trainable parameters (~0.6% of total) and memory footprint.         |
-| **Fully Fine-tuned** | **47.5** | **43.1** | Highest performance, but with significantly higher computational and storage costs (all 220M parameters updated).                  |
+| **PEFT (LoRA) Fine-tuned** | **46.1** | **42.0** | Achieved ~19% improvement over baseline. Drastically reduced trainable parameters (~0.6% of total) and memory footprint.         |
+| **Fully Fine-tuned** | **46.9** | **42.7** | Highest performance, but with significantly higher computational and storage costs (all 220M parameters updated).                  |
 
 **Conclusion:** The PEFT (LoRA) fine-tuned model demonstrated substantial performance improvements over the pre-trained baseline, achieving nearly identical results to the computationally intensive full fine-tuning approach, proving its efficiency and practicality for LLM adaptation on resource-constrained hardware.
