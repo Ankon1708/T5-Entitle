@@ -29,10 +29,10 @@ The model was fine-tuned using the Hugging Face Transformers library and the Seq
 
 **Key aspects of the fine-tuning process include:**
 
-* **Base Model:** Google's Flan-T5-Base (220M parameters). (An initial attempt to fine-tune Flan-T5-Large (770M parameters) was constrained by the 32GB GPU memory, underscoring the necessity for PEFT techniques.)
+* **Base Model:** Google's Flan-T5-Base (248M parameters).
 * **Framework:** PyTorch
 * **Optimizer:** AdamW
-* **Learning Rate:** Initialized at 2e-5 and adjusted to 3e-5 during training for full fine-tuning. LoRA training used specific learning rate optimizations as per PEFT guidelines.
+* **Learning Rate:** Initialized at 2e-5 and adjusted to 3e-5 during separate training cycles for full fine-tuning. LoRA training used specific learning rate optimizations as per PEFT guidelines.
 * **Batch Size:** An effective global batch size of 32 (16 per GPU on two NVIDIA T4 GPUs).
 * **Epochs:** Trained for 6 epochs.
 * **Learning Rate Scheduler:** Linear decay of 0.01 with warmup (default in Trainer).
@@ -40,7 +40,7 @@ The model was fine-tuned using the Hugging Face Transformers library and the Seq
 * **LoRA Configuration:**
     * `r`: 16 (LoRA attention dimension)
     * `lora_alpha`: 32 (Scaling factor for LoRA updates)
-    * `target_modules`: `["q", "v"]` (Applied to query and value projection matrices)
+    * `target_modules`: Default for Seq2Seq models
     * `lora_dropout`: 0.05
     * `bias`: "none"
     * `task_type`: `TaskType.SEQ_2_SEQ_LM`
@@ -63,7 +63,9 @@ The comparison below highlights the effectiveness of both fine-tuning strategies
 | Model Version             | ROUGE-1 (F1-score) | ROUGE-L (F1-score) | Notes                                                                                                                              |
 | :------------------------ | :----------------- | :----------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
 | **Pre-trained Flan-T5 Base** | 39.1               | 35.6               | Baseline performance.                                                                                                              |
-| **PEFT (LoRA) Fine-tuned** | **46.1** | **42.0** | Achieved ~19% improvement over baseline. Drastically reduced trainable parameters (~0.6% of total) and memory footprint.         |
-| **Fully Fine-tuned** | **46.9** | **42.7** | Highest performance, but with significantly higher computational and storage costs (all 220M parameters updated).                  |
+| **PEFT (LoRA) Fine-tuned** | **46.1** | **42.0** | Achieved ~18% improvement over baseline. Drastically reduced trainable parameters (~0.6% of total) and memory footprint.         |
+| **Fully Fine-tuned** | **46.9** | **42.7** | Highest performance, ~20% improvement over baseline
+
+With PEFT (LoRA), fine-tuning was notably more efficient, completing approximately 19% faster and utilizing about 14% less GPU memory than full fine-tuning, while achieving nearly identical performance. This efficiency stems from only updating a tiny fraction of the model's parameters, with PEFT modelling only involving 1.77M trainable parameters (0.71% of all parameters).
 
 **Conclusion:** The PEFT (LoRA) fine-tuned model demonstrated substantial performance improvements over the pre-trained baseline, achieving nearly identical results to the computationally intensive full fine-tuning approach, proving its efficiency and practicality for LLM adaptation on resource-constrained hardware.
