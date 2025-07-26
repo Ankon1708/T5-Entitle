@@ -44,7 +44,7 @@ The model was fine-tuned using the Hugging Face Transformers library and the Seq
     * `lora_dropout`: 0.05
     * `bias`: "none"
     * `task_type`: `TaskType.SEQ_2_SEQ_LM`
-* **Parameter Efficiency:** With LoRA, only approximately **0.6%** of the original model's parameters were trained, drastically reducing the memory footprint during training and the size of the saved checkpoints (only the adapters are saved, typically a few MBs).
+* **Parameter Efficiency:** With LoRA, only approximately **0.7%** of the original model's parameters were trained, drastically reducing the memory footprint during training and the size of the saved checkpoints (only the adapters are saved, typically a few MBs).
 * **Model Saving & Deployment:** Trained LoRA adapters were saved locally using `model.save_pretrained()` and pushed to the Hugging Face Hub for easy sharing and loading.
 * **Experiment Tracking:** Weights & Biases (W&B) was used for real-time logging, visualization, and tracking of metrics and loss curves.
 
